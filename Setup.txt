@@ -1,0 +1,43 @@
+1. Cài docker về máy
+
+2. tạo 1 file ".env":
+# n8n API Key (generate this after first setup)
+N8N_API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiZjQ4YmI3OS1kOGRhLTQ2YWQtYTUxNi05MzQxZmZjN2ExYTMiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiMTcxMDY0NDItMTVlMS00Yjc2LTgwYzMtZjlhYTEwMmU3N2VhIiwiaWF0IjoxNzc0NDY0NTkwLCJleHAiOjE3NzcwNTAwMDB9.VxjU5pCvNjeCGlJJd2s_RbQ_30yLwINCRtEaKPCxwd8
+
+# Database configuration
+POSTGRES_DB=n8n
+POSTGRES_USER=n8n
+POSTGRES_PASSWORD=n8n_password
+
+3. Từ thư mục gốc, mở 1 terminal và chạy 
+"docker-compose -f docker-compose.local.yml up -d --build"
+
+4. Truy cập trên chrome "localhost:5678" để mở n8n local
+
+5. Tạo Api key trên n8n và điền thêm vào file config trong claude desktop như sau 
+/Users/<name>/Library/Application Support/Claude/claude_desktop_config.json
+{
+  "mcpServers": {
+    "n8n-mcp": {
+      "command": "npx",
+      "args": [
+        "n8n-mcp"
+      ],
+      "env": {
+        "MCP_MODE": "stdio",
+        "LOG_LEVEL": "error",
+        "DISABLE_CONSOLE_OUTPUT": "true",
+        "N8N_API_URL": "http://localhost:5678",
+        "N8N_API_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiZjQ4YmI3OS1kOGRhLTQ2YWQtYTUxNi05MzQxZmZjN2ExYTMiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiMTcxMDY0NDItMTVlMS00Yjc2LTgwYzMtZjlhYTEwMmU3N2VhIiwiaWF0IjoxNzc0NDY0NTkwLCJleHAiOjE3NzcwNTAwMDB9.VxjU5pCvNjeCGlJJd2s_RbQ_30yLwINCRtEaKPCxwd8"
+      }
+    }
+  },
+  "preferences": {
+    "coworkScheduledTasksEnabled": false,
+    "ccdScheduledTasksEnabled": false,
+    "coworkWebSearchEnabled": true,
+    "sidebarMode": "chat"
+  }
+}
+
+6. mở claude desktop và bắt đầu prompt
